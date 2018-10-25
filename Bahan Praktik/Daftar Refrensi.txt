@@ -1,3 +1,6 @@
 1. OpenLayers - https://openlayers.org/ 
 2. OpenLayers 3 Beginner’s Guide - http://openlayersbook.github.io/
-2. OpenLayers - Google Maps integration - http://mapgears.github.io/ol3-google-maps/
+3. OpenLayers - Google Maps integration - http://mapgears.github.io/ol3-google-maps/
+4. Leaflet official - https://leafletjs.com
+5. Get Geojson data online - http://geojson.io/
+6. Esri Leaflet - https://esri.github.io
