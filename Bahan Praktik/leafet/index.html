@@ -70,7 +70,7 @@
 		  </div>
 		</nav>
 	    <div id="map" class="map"></div>
-	    <div id="basemaps-wrapper" class="leaflet-bar">
+<!-- 	    <div id="basemaps-wrapper" class="leaflet-bar">
 		  <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
 		    <option value="Topographic">Topographic</option>
 		    <option value="Streets">Streets</option>
@@ -84,7 +84,7 @@
 		    <option value="ShadedRelief">Shaded Relief</option>
 		    <option value="Physical">Physical</option>
 		  </select>
-		</div>
+		</div> -->
  	</div>
  	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -94,7 +94,7 @@
     <script type="text/javascript">
 
    	//add map utama
-	var mymap = L.map('map').setView([-8.6180156, 117.4445749], 9);
+	var mymap = L.map('map').setView([-8.6980952, 116.2827358], 18);
 
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 		maxZoom: 18,
@@ -105,40 +105,45 @@
 	}).addTo(mymap);
 
 	//add basemap
-	var layer = L.esri.basemapLayer('Topographic').addTo(mymap);
-  	var layerLabels;
+	// var layer = L.esri.basemapLayer('Topographic').addTo(mymap);
+ //  	var layerLabels;
 
-	function setBasemap(basemap) {
-	    if (layer) {
-	      mymap.removeLayer(layer);
-	    }
+	// function setBasemap(basemap) {
+	//     if (layer) {
+	//       mymap.removeLayer(layer);
+	//     }
 
-	    layer = L.esri.basemapLayer(basemap);
+	//     layer = L.esri.basemapLayer(basemap);
 
-	    mymap.addLayer(layer);
+	//     mymap.addLayer(layer);
 
-	    if (layerLabels) {
-	      mymap.removeLayer(layerLabels);
-	    }
+	//     if (layerLabels) {
+	//       mymap.removeLayer(layerLabels);
+	//     }
 
-	    if (basemap === 'ShadedRelief'
-	     || basemap === 'Oceans'
-	     || basemap === 'Gray'
-	     || basemap === 'DarkGray'
-	     || basemap === 'Terrain'
-	   ) {
-	      layerLabels = L.esri.basemapLayer(basemap + 'Labels');
-	      mymap.addLayer(layerLabels);
-	    } else if (basemap.includes('Imagery')) {
-	      layerLabels = L.esri.basemapLayer('ImageryLabels');
-	      mymap.addLayer(layerLabels);
-	    }
-	}
+	//     if (basemap === 'ShadedRelief'
+	//      || basemap === 'Oceans'
+	//      || basemap === 'Gray'
+	//      || basemap === 'DarkGray'
+	//      || basemap === 'Terrain'
+	//    ) {
+	//       layerLabels = L.esri.basemapLayer(basemap + 'Labels');
+	//       mymap.addLayer(layerLabels);
+	//     } else if (basemap.includes('Imagery')) {
+	//       layerLabels = L.esri.basemapLayer('ImageryLabels');
+	//       mymap.addLayer(layerLabels);
+	//     }
+	// }
 
-	function changeBasemap(basemaps){
-	    var basemap = basemaps.value;
-	    setBasemap(basemap);
-	}
+	// function changeBasemap(basemaps){
+	//     var basemap = basemaps.value;
+	//     setBasemap(basemap);
+	// }
+	var marker1 = L.marker([-8.6983759, 116.2827428]).addTo(mymap)
+		.bindPopup("<b>Ini adalah Titik</b><br />Lab STMIK Lombok.").openPopup();
+	var popup = L.popup();
+
+
 
 		function onEachFeature(feature, layer) {
 		var popupContent = "<p>Selamat datang di, Kampus Kami!</p>";
