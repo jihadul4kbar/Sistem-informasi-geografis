@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Map Marker</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="asset/leaflet/leaflet.css">
+	<script src="asset/leaflet/leaflet.js"></script>
+	<script src="json/praya.js"></script>
+	<style>
+		html, body {
+			height: 100%;
+			width: 100%;
+			margin:0;
+			padding: 0;
+		}
+		#map {
+			width: 100%;
+			height:100%;
+		}
+	</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+	var masjid = L.layerGroup();
+
+	L.marker([-8.70255, 116.26714]).bindPopup('Masjid Agung Praya').addTo(masjid),
+	L.marker([-8.71077, 116.27883]).bindPopup('Masjid Jami').addTo(masjid),
+	L.marker([-8.6965725, 116.2826282]).bindPopup('Masjid Al-Istikomah').addTo(masjid),
+	L.marker([-8.6981617, 116.2854233]).bindPopup('Masjid Darul Mutaqin').addTo(masjid);
+
+	var sekolah = L.layerGroup();
+	L.marker([-8.69835, 116.28224]).bindPopup('STMIK Lombok').addTo(sekolah),
+	L.marker([-8.69777, 116.28200]).bindPopup('YANMU Praya').addTo(sekolah);
+	var pasar = L.layerGroup();
+	L.marker([-8.69415, 116.26584]).bindPopup('Renteng').addTo(pasar),
+	L.marker([-8.71188, 116.28291]).bindPopup('Karang Bualayak').addTo(pasar);
+
+	var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+	var streets  = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr}),
+		grayscale   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr});
+
+	var map = L.map('map', {
+		center: [-8.7017591, 116.305088],
+		zoom: 12,
+		layers: [streets, masjid, sekolah, pasar]
+	});
+
+	var baseLayers = {
+		"Streets": streets,
+		"Grayscale": grayscale		
+	};
+
+	var overlays = {
+		"Masjid": masjid,
+		"Sekolah": sekolah,
+		"Pasar" : pasar
+	};
+
+	L.control.layers(baseLayers, overlays).addTo(map);
+
+	L.geoJSON([praya], {
+		style: function (feature) {
+			return feature.properties && feature.properties.style;
+		}
+	}).addTo(map);
+</script>
+</body>
+</html>
