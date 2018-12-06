@@ -17,6 +17,10 @@
 			width: 100%;
 			height:100%;
 		}
+		.leaflet-popup-content {
+			width:auto !important;
+		}
+
 	</style>
 </head>
 <body>
@@ -58,10 +62,13 @@
 	// Mendeklarasikan Marker Pasar dan membuatnya menjadi 
 	// Layer Group
 	//##############################################//
-	var psr1 = L.marker([-8.69415, 116.26584],{icon: pasarIcon}).bindPopup('Renteng');
-	var psr2 = L.marker([-8.71188, 116.28291],{icon: pasarIcon}).bindPopup('Karang Bualayak');
+	var psr1 = L.marker([-8.69415, 116.26584],{icon: pasarIcon}).bindPopup("Pasar Renteng <img src='img/pasar-renteng.jpg' alt='Pasar Renteng ' width='350px'/>");
+	var psr2 = L.marker([-8.71188, 116.28291],{icon: pasarIcon}).bindPopup("Karang Bualayak <img src='img/karangbulayak.jpg' alt='Pasar Karang Bulayak' width='350px'/>");
 
 	var pasar = L.layerGroup([psr1, psr2]);
+
+//var popupRenteng = "";
+
 
 	//##############################################//
 	// Membuat BaseMap Pada Peta
@@ -78,8 +85,8 @@
 	// Mendeklarasikan Peta kedalam Id Map
 	//##############################################//
 	var map = L.map('map', {
-		center: [-8.6775076, 116.2825584],
-		zoom: 13,
+		center: [-8.6416479, 116.3522657],
+		zoom: 11,
 		layers: [streets]
 	});
 
@@ -113,6 +120,68 @@
 		}
 		
 	});
+	var batukliangutara = L.geoJSON([btklu], {
+		style:function(feature){
+			return feature.properties && feature.properties.style;
+		}
+	});
+	var batukliang = L.geoJSON([btkl], {
+		style:function(feature){
+			return feature.properties && feature.properties.style;
+		}
+	});
+	var kopang = L.geoJSON([kpg], {
+		style:function(feature){
+			return feature.properties && feature.properties.style;
+		}
+	});
+	var janapria = L.geoJSON([jnp], {
+		style:function(feature){
+			return feature.properties && feature.properties.style;
+		}
+	});
+	var jonggat = L.geoJSON([jgt], {
+		style:function(feature){
+			return feature.properties && feature.properties.style;
+		}
+	});
+
+	var pringarata = L.geoJSON([pggt], {
+		style:function(feature){
+			return feature.properties && feature.properties.style;
+		}
+	});
+	var praya = L.geoJSON([praya], {
+		style:function(feature){
+			return feature.properties && feature.properties.style;
+		}
+	});
+	var prabarda = L.geoJSON([prabarda], {
+		style:function(feature){
+			return feature.properties && feature.properties.style;
+		}
+	});
+	var prabar = L.geoJSON([prabar], {
+		style:function(feature){
+			return feature.properties && feature.properties.style;
+		}
+	});
+
+	var prateng = L.geoJSON([prateng], {
+		style:function(feature){
+			return feature.properties && feature.properties.style;
+		}
+	});
+	var pratim = L.geoJSON([pratim], {
+		style:function(feature){
+			return feature.properties && feature.properties.style;
+		}
+	});
+	var pujut = L.geoJSON([pjt], {
+		style:function(feature){
+			return feature.properties && feature.properties.style;
+		}
+	});
 	//##############################################//
 	// Deklarasi untuk memilih Icon yang akan ditampilkan
 	//##############################################//
@@ -120,10 +189,23 @@
 		"Masjid": masjid,
 		"Sekolah": sekolah,
 		"Pasar" : pasar,
-		"Kelurahan Praya ": kelpraya,
-		"Kelurahan Leneng": leneng,
-		"Keluranan Prapen": prapen,
-		"Keluranan Panjisari": panjisari
+		// "Kelurahan Praya ": kelpraya,
+		// "Kelurahan Leneng": leneng,
+		// "Keluranan Prapen": prapen,
+		// "Keluranan Panjisari": panjisari,
+		// Kecamatan
+		"Kec. Batuklaiang Utara": batukliangutara,
+		"Kec. Batuklaiang": batukliang,
+		"Kec. Kopang": kopang,
+		"Kec. Janapria": janapria,
+		"Kec. Pringarata": pringarata,
+		"Kec. Jonggat": jonggat,
+		"Kec. Praya": praya,
+		"Kec. Praya Barat Daya": prabarda,
+		"Kec. Praya Barat": prabar,
+		"Kec. Praya Tengah": prateng,
+		"Kec. Praya Timur": pratim,
+		"Kec. Pujut": pujut,
 	};
 
 	//##############################################//
@@ -134,7 +216,7 @@
 	//##############################################//
 	// Menbambil data geospesial wilayak kecamatan praya
 	//##############################################//
-	L.geoJSON([praya], {
+	L.geoJSON([btskab], {
 		style: function (feature) {
 			return feature.properties && feature.properties.style;
 		}
