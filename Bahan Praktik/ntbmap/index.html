@@ -59,7 +59,7 @@
 
     L.control.layers(baseLayers).addTo(map);
 
-    L.geoJSON([gerunung], {
+    L.geoJSON([gerunung, praya], {
 		style: function (feature) {
 			return feature.properties && feature.properties.style;
 		}
