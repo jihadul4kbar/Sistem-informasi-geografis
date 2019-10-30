@@ -27,17 +27,6 @@
 
 
     <script>
-    // var petaku = L.map('ntbmap').setView([ -8.5926542, 117.431496], 9);
-    
-    // L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiamloYWR1bDRrYmFyIiwiYSI6ImNqZ3lzOXpmaDA0bGQzMnJveGh5eW5lZjgifQ.IrFoCdc8VtGPQEzUFPqG_A', 
-    // {
-    //     attribution:'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, '+ 
-    //                 'Createby &copy; <a href="https://www.jihadul4kbar.github.io/">Jihadul Akbar</a>',
-	// 	id: 'mapbox.streets'
-    // }).addTo(petaku);
-    
-    
-
     var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' + 
                  ' &copy; <a href="https://www.jihadul4kbar.github.io/">Jihadul Akbar</a>',
         mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiamloYWR1bDRrYmFyIiwiYSI6ImNqZ3lzOXpmaDA0bGQzMnJveGh5eW5lZjgifQ.IrFoCdc8VtGPQEzUFPqG_A';
@@ -48,17 +37,37 @@
     var map = L.map('ntbmap', {
         center: [-8.6873968, 116.2817962],
         zoom: 14,
-        layers: [ grayscale]
+        layers: [ streets]
     });
 
     var baseLayers = {
-        "Streets": streets,
-        "Grayscale": grayscale
+        "Jalan": streets,
+        "Hitam Putih": grayscale
         
     };
-
     L.control.layers(baseLayers).addTo(map);
 
+    var mapIcon = L.Icon.extend({
+        options: {
+            iconSize:     [33, 38],
+            iconAnchor:   [22, 94],
+            popupAnchor:  [-5, -90] 
+        }
+        });
+	var masjidIcon = new mapIcon({iconUrl: 'icon/mosquee.png'}),
+	    pasarIcon = new mapIcon({iconUrl: 'icon/market.png'}),
+	    sekolahIcon = new mapIcon({iconUrl: 'icon/school.png'});
+
+    L.marker([-8.6982144,116.2834702],{icon: sekolahIcon}).addTo(map)
+    .bindPopup('Kampus STMIK LOMBOK.<br> Lombok Tengah.')
+    .openPopup();
+
+    L.marker([-8.6941419,116.2676345],{icon: pasarIcon}).addTo(map)
+    .bindPopup('Pasar Renteng .<br> Lombok Tengah.');
+
+    L.marker([-8.70255, 116.26714],{icon: masjidIcon}).addTo(map)
+    .bindPopup('Masjid Jamiq .<br> Lombok Tengah.');
+    
     L.geoJSON([gerunung, praya], {
 		style: function (feature) {
 			return feature.properties && feature.properties.style;
