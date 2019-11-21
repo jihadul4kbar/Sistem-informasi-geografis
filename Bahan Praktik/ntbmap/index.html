@@ -33,42 +33,74 @@
 
     var streets  = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr}),
         grayscale   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr});
+        traffic = L.tileLayer(mbUrl, {id:'mapbox.mapbox-terrain-v2', attribution:mbAttr});
+        jalanv8 = L.tileLayer(mbUrl, {id:'mapbox.mapbox-streets-v8', attribution:mbAttr});
+        satellite = L.tileLayer(mbUrl, {id:'mapbox.satellite', attribution:mbAttr});
+
+// mapbox.streets
+// mapbox.light
+// mapbox.dark
+// mapbox.satellite
+// mapbox.streets-satellite
+// mapbox.wheatpaste
+// mapbox.streets-basic
+// mapbox.comic
+// mapbox.outdoors
+// mapbox.run-bike-hike
+// mapbox.pencil
+// mapbox.pirates
+// mapbox.emerald
+// mapbox.high-contrast
 
     var map = L.map('ntbmap', {
         center: [-8.6873968, 116.2817962],
         zoom: 14,
         layers: [ streets]
     });
-
-    var baseLayers = {
-        "Jalan": streets,
-        "Hitam Putih": grayscale
-        
-    };
-    L.control.layers(baseLayers).addTo(map);
-
-    var mapIcon = L.Icon.extend({
+var mapIcon = L.Icon.extend({
         options: {
             iconSize:     [33, 38],
             iconAnchor:   [22, 94],
             popupAnchor:  [-5, -90] 
         }
         });
-	var masjidIcon = new mapIcon({iconUrl: 'icon/mosquee.png'}),
-	    pasarIcon = new mapIcon({iconUrl: 'icon/market.png'}),
-	    sekolahIcon = new mapIcon({iconUrl: 'icon/school.png'});
+    var masjidIcon = new mapIcon({iconUrl: 'icon/mosquee.png'}),
+        pasarIcon = new mapIcon({iconUrl: 'icon/market.png'}),
+        sekolahIcon = new mapIcon({iconUrl: 'icon/school.png'});
 
     L.marker([-8.6982144,116.2834702],{icon: sekolahIcon}).addTo(map)
-    .bindPopup('Kampus STMIK LOMBOK.<br> Lombok Tengah.')
-    .openPopup();
+    .bindPopup('Kampus STMIK LOMBOK.<br> Lombok Tengah.');
+
+    L.marker([-8.6981603,116.2530551],{icon:sekolahIcon}).addTo(map)
+    .bindPopup('IPDN LOMBOK TENGAH');
+
+    L.marker([-8.69846, 116.25401],{icon:sekolahIcon}).addTo(map)
+    .bindPopup('IPDN LOMBOK TENGAH');
 
     L.marker([-8.6941419,116.2676345],{icon: pasarIcon}).addTo(map)
     .bindPopup('Pasar Renteng .<br> Lombok Tengah.');
 
-    L.marker([-8.70255, 116.26714],{icon: masjidIcon}).addTo(map)
-    .bindPopup('Masjid Jamiq .<br> Lombok Tengah.');
+    var mj1 = L.marker([-8.7111808,116.2779302],{icon: masjidIcon}).addTo(map).bindPopup('Masjid Jamiq .<br> Lombok Tengah.');
+    var mj2 = L.marker([-8.701644,116.2657422],{icon: masjidIcon}).addTo(map).bindPopup('Masjid Agung.<br> Lombok Tengah.');
     
-    L.geoJSON([gerunung, praya], {
+    var masjid = L.layerGroup([mj1, mj2]);
+    var baseLayers = {
+        "Jalan": streets,
+        "Hitam Putih": grayscale,
+        "Trapik": traffic,
+        "Jalanv8": jalanv8,
+        "Satellite": satellite,
+        
+    };
+    var overlays = {
+        "Masjid": masjid
+    };
+
+    L.control.layers(baseLayers).addTo(map);
+
+    
+
+    L.geoJSON([gerunung, praya, leneg], {
 		style: function (feature) {
 			return feature.properties && feature.properties.style;
 		}
